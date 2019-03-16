@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Hapi = require("hapi");
-const { routes } = require("./routes/thing.js");
+const routes = require("./routes/thing.js");
 require('dotenv').config();
 
 async function api() {
@@ -10,19 +10,19 @@ async function api() {
     });
 
     const server = new Hapi.Server({
-      port: 5050,
+      port: 5000,
       host: 'localhost'
     });
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
-    
-    await routes(server).index;
-    await routes(server).all;
-    await routes(server).get;
-    await routes(server).post;
-    await routes(server).put;
-    await routes(server).delete;
+
+    await routes.index(server);
+    await routes.all(server);
+    await routes.get(server);
+    await routes.post(server);
+    await routes.put(server);
+    await routes.delete(server);
     return server;
 
   } catch(err) {
@@ -36,4 +36,3 @@ api()
       console.error(err);
       process.exit(1);
   });
-

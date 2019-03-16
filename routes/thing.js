@@ -1,38 +1,75 @@
 const controller = require("../controller/thing.js");
 
-const routes = function (server) {
-  return {
-    index: server.route({
+const routes = {
+  index: (async (server) => {
+    return await server.route({
       method: 'GET',
       path: '/',
-      handler: controller().index
-    }),
-    all: server.route({
+      options: {
+        auth: false
+      },
+      handler: async (req, head) => {
+        return await controller.index();
+      }
+    });
+  }),
+  all: (async (server) => {
+    return await server.route({
       method: 'GET',
       path: '/api/things',
-      handler: controller().all
-    }),
-    get: server.route({
+      options: {
+        auth: false
+      },
+      handler: async (req, head) => {
+        return await controller.all();
+      }
+    });
+  }),
+  get: (async (server) => {
+    return await server.route({
       method: 'GET',
       path: '/api/things/{id}',
-      handler: controller().get
-    }),
-    post: server.route({
+      handler: async (req, head) => {
+        return await controller.get(null);
+      }
+    });
+  }),
+  post: (async (server) => {
+    return await server.route({
       method: 'POST',
       path: '/api/things',
-      handler: controller().create
-    }),
-    put: server.route({
+      options: {
+        auth: false
+      },
+      handler: async (req, head) => {
+        return await controller.post(null);
+      }
+    });
+  }),
+  put: (async (server) => {
+    return await server.route({
       method: 'PUT',
       path: '/api/things/{id}',
-      handler: controller().update
-    }),
-    delete: server.route({
+      options: {
+        auth: false
+      },
+      handler: async (req, head) => {
+        return await controller.put(null);
+      }
+    });
+  }),
+  delete: (async (server) => {
+    return await server.route({
       method: 'DELETE',
       path: '/api/things/{id}',
-      handler: controller().remove
-    })
-  }
+      options: {
+        auth: false
+      },
+      handler: async (req, head) => {
+        return await controller.delete(null);
+      }
+    });
+  })
 }
 
 module.exports = routes;
