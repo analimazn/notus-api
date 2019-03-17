@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Hapi = require("hapi");
-const routes = require("./routes/thing.js");
+const taskRoutes = require("./routes/task.js");
 require('dotenv').config();
 
 async function api() {
@@ -9,30 +9,29 @@ async function api() {
       useNewUrlParser: true
     });
 
+    mongoose.connection.on('connected', () => {
+      console.log("Connected to MongoDB");
+    });
+
+    mongoose.connection.on('error', (err) => {
+      console.log("Error while connecting to MongoDB", err);
+    });
+
     const server = new Hapi.Server({
-      port: 5000,
+      port: 5050,
       host: 'localhost'
     });
 
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
 
-    await routes.index(server);
-    await routes.all(server);
-    await routes.get(server);
-    await routes.post(server);
-    await routes.put(server);
-    await routes.delete(server);
-    return server;
+    server.route(taskRoutes);
+
 
   } catch(err) {
     return ("Error on server.", err);
+    process.exit(1);
   }
 }
 
 api()
-  .then((server) => console.log("Server listening on port"))
-  .catch((err) => {
-      console.error(err);
-      process.exit(1);
-  });
