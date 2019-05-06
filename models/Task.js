@@ -10,9 +10,17 @@ const taskSchema = new Schema({
     type: String,
     required: false
   },
-  img: {
-    type: Buffer,
-    required: false
+  date: {
+    type: String,
+    required: true
+  },
+  time: {
+    type: String,
+    required: true
+  },
+  importance: {
+    type: String,
+    required: true
   },
   check: {
     type: Boolean,
@@ -20,7 +28,8 @@ const taskSchema = new Schema({
   },
   created_at: {
     type: Date, 
-    default: Date.now}
+    default: Date.now
+  }
 })
 
 module.exports = mongoose.model('Task', taskSchema);

@@ -19,7 +19,7 @@ async function api() {
 
     const server = new Hapi.Server({
       port: 5050,
-      host: 'localhost'
+      host: '0.0.0.0'
     });
 
     await server.start();

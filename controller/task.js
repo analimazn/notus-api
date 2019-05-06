@@ -12,25 +12,30 @@ module.exports = {
       return ("Hello");
     } catch (err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
     }
   },
   async create(req, head) {
     try {
       const params = req.payload;
-
+      console.log(params)
       const task = await new Task({
         title: params.title,
         description: params.description,
-        img: params.img,
+        flag: params.flag,
+        date: params.date,
+        time: params.time,
+        importance: params.importance,
         check: false,
         created_at: new Date()
       });
 
       const result = await task.save();
-      return {message: "Created successfully", result};
+      return {message: "Created successfully"};
 
     } catch(err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
     }
   },
   async find(req, head) {
@@ -38,6 +43,8 @@ module.exports = {
       return await Task.find({}).sort({createdAt: 'desc'});
     } catch (err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
+
     }
   },
   async findOne(req, head) {
@@ -47,6 +54,7 @@ module.exports = {
       });
     } catch (err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
     }
   },
   async update(req, head) {
@@ -59,6 +67,7 @@ module.exports = {
       return {message: "Update successfully", result};
     } catch (err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
     }
   },
   async delete(req, head) {
@@ -67,6 +76,7 @@ module.exports = {
       return {success: true, message: 'Successfully removed!', result};
     } catch (err) {
       Boom.badImplementation(err);
+      return ("Bad Implementation", err);
     }
   }
 }
