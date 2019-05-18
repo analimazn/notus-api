@@ -23,7 +23,7 @@ module.exports = [
   },
   {
     path: '/api/tasks/{id}',
-    method: 'PUT',
+    method: 'POST',
     handler: controller.update
   },
   {

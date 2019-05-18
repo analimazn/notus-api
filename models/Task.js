@@ -11,15 +11,11 @@ const taskSchema = new Schema({
     required: false
   },
   date: {
-    type: String,
-    required: true
-  },
-  time: {
-    type: String,
+    type: Date,
     required: true
   },
   importance: {
-    type: String,
+    type: Number,
     required: true
   },
   check: {
