@@ -1,4 +1,4 @@
-const controller = require("../controller/task.js");
+const controller = require("../controller/task.js")
 
 module.exports = [
   {
